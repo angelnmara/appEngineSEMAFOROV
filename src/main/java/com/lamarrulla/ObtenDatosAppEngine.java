@@ -14,7 +14,7 @@ import com.lamarrulla.datosrutas.SaveRutasPasos;
 	    urlPatterns = {"/obtendatos"}
 	)
 
-public class ObrenDatosAppEngine extends HttpServlet {
+public class ObtenDatosAppEngine extends HttpServlet {
 	
 	SaveRutasPasos srp = new SaveRutasPasos();
 	

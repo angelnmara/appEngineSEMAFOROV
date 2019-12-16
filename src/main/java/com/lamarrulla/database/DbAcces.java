@@ -7,13 +7,13 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class DbAcces {
-	static String server = "127.0.0.1";
-	static String puerto = "5430";
-	static String database = "postgres";
-	static String user = "postgres";
-	static String passw = "maradr";
-	static int tipoDatabase = 1;
-	private String instance = "semaforov-258100:us-central1:semaforovins";
+	static String server = System.getenv("server");
+	static String puerto = System.getenv("puerto");
+	static String database = System.getenv("database");
+	static String user = System.getenv("user");
+	static String passw = System.getenv("passw");
+	static int tipoDatabase = Integer.parseInt(System.getenv("tipoDatabase"));
+	private String instance = System.getenv("instance");
 	Connection connection = null;
 	PreparedStatement ps = null;
 	ResultSet rs = null;
