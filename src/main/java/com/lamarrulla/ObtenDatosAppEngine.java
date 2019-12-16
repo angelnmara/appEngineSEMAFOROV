@@ -10,8 +10,8 @@ import javax.servlet.http.HttpServletResponse;
 import com.lamarrulla.datosrutas.SaveRutasPasos;
 
 @WebServlet(
-	    name = "ObtenDatosAppEngine",
-	    urlPatterns = {"/obtendatos"}
+	    name = "generaDatosForRutasAppEngine",
+	    urlPatterns = {"/generaDatosForRutas"}
 	)
 
 public class ObtenDatosAppEngine extends HttpServlet {

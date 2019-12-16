@@ -12,7 +12,7 @@ public class DbAcces {
 	static String database = System.getenv("database");
 	static String user = System.getenv("user");
 	static String passw = System.getenv("passw");
-	static int tipoDatabase = Integer.parseInt(System.getenv("tipoDatabase"));
+	static int tipoDatabase = Integer.parseInt(System.getenv("tipoDatabase"));	// 1 Local // 2 SQLEngine
 	private String instance = System.getenv("instance");
 	Connection connection = null;
 	PreparedStatement ps = null;

@@ -48,22 +48,27 @@
       <artifactId>jstl</artifactId>
       <version>1.2</version>
     </dependency>
-
+	<!-- https://mvnrepository.com/artifact/org.postgresql/postgresql -->
+	<dependency>
+	    <groupId>org.postgresql</groupId>
+	    <artifactId>postgresql</artifactId>
+	    <version>42.2.5</version>
+	</dependency>	
     <dependency>
-<groupId>com.google.appengine</groupId>
-<artifactId>appengine-api-1.0-sdk</artifactId>
-<version>1.9.76</version>
-</dependency>
-<dependency>
-<groupId>com.googlecode.objectify</groupId>
-<artifactId>objectify</artifactId>
-<version>6.0.4</version>
-</dependency>
-<dependency>
-<groupId>com.google.endpoints</groupId>
-<artifactId>endpoints-framework</artifactId>
-<version>2.2.1</version>
-</dependency>
+		<groupId>com.google.appengine</groupId>
+		<artifactId>appengine-api-1.0-sdk</artifactId>
+		<version>1.9.76</version>
+	</dependency>
+	<dependency>
+		<groupId>com.googlecode.objectify</groupId>
+		<artifactId>objectify</artifactId>
+		<version>6.0.4</version>
+	</dependency>
+	<dependency>
+		<groupId>com.google.endpoints</groupId>
+		<artifactId>endpoints-framework</artifactId>
+		<version>2.2.1</version>
+	</dependency>
 <!-- Test Dependencies -->
     <dependency>
       <groupId>junit</groupId>
