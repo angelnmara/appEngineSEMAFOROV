@@ -93,7 +93,7 @@ static API api = new API();
 		
 		try {
 			//URL url = new URL("https://maps.googleapis.com/maps/api/js/DirectionsService.Route?5m4&1m3&1m2&1d" + StartLocationLat + "&2d" + StartLocationLng + "&5m4&1m3&1m2&1d" + EndLocationLat + "&2d" + EndLocationLng + "&6e0&12ses-MX&23e1&callback=_xdc_._ft28bq&key=" + yEk + "&token=" + Token);
-			URL url = new URL("https://maps.googleapis.com/maps/api/directions/json?origin=ex hacienda santa ines, nextlalpan&destination=ojo de agua, tecamac&key=AIzaSyCQPkPoI81M_rkO_qWp8gGTSxTnwhKfWiY");
+			URL url = new URL("https://maps.googleapis.com/maps/api/directions/json?origin=ex%20hacienda%20santa%20ines,%20nextlalpan&destination=ojo%20de%20agua,%20tecamac&key=AIzaSyCQPkPoI81M_rkO_qWp8gGTSxTnwhKfWiY");
 			api.setUrl(url);
 			api.get();
 			arreglaSalidaMaps(api.getSalida());
@@ -120,13 +120,13 @@ static API api = new API();
 		}		
 	} 
 	
-	private static void arreglaSalidaMaps(String salida) {
+	private static void arreglaSalidaMaps(StringBuffer salida) {
 		// TODO Auto-generated method stub
     	if(salida.length()>0) {
-    		salida = salida.replace("/**/_xdc_._ft28bq && _xdc_._ft28bq(", "")
-    				.replace("\\u003cb\\u003e", "");
-    			salida = salida.substring(0, salida.length()-1);
-    			jso = new JsonParser().parse(salida).getAsJsonObject();
+//    		salida = salida.replace("/**/_xdc_._ft28bq && _xdc_._ft28bq(", "")
+//    				.replace("\\u003cb\\u003e", "");
+//    			salida = salida.substring(0, salida.length()-1);
+    			jso = new JsonParser().parse(salida.toString()).getAsJsonObject();
     			System.out.println(jso.toString());    			
     			ins.setJso(jso);
     			ins.insertRutas();
