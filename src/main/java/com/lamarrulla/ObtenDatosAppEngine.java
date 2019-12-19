@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.lamarrulla.datosrutas.SaveRutasPasos;
+import com.lamarrulla.model.TbParametrosGeneraRutas;
 import com.lamarrulla.utils.LaMarrullaUtils;
 
 @WebServlet(
@@ -29,13 +30,26 @@ public class ObtenDatosAppEngine extends HttpServlet {
 		  String salida;
 		  
 		  try {
+			  //lee parametros
 			  String parametrosEntrada = utils.recoverParams(request);
 			  jso = new JsonParser().parse(parametrosEntrada).getAsJsonObject();	
 			  
-			  srp.setStartLocationLat(jso.get("p1Lat").getAsBigDecimal());
-			  srp.setStartLocationLng(jso.get("p1Lng").getAsBigDecimal());
-			  srp.setEndLocationLat(jso.get("p2Lat").getAsBigDecimal());
-			  srp.setEndLocationLng(jso.get("p2Lng").getAsBigDecimal());
+			  //old
+//			  srp.setNombreRuta(jso.get("nombreRuta").getAsString());
+//			  srp.setStartLocationLat(jso.get("p1Lat").getAsBigDecimal());
+//			  srp.setStartLocationLng(jso.get("p1Lng").getAsBigDecimal());
+//			  srp.setEndLocationLat(jso.get("p2Lat").getAsBigDecimal());
+//			  srp.setEndLocationLng(jso.get("p2Lng").getAsBigDecimal());
+			  
+			  //new
+			  TbParametrosGeneraRutas tbdr = new TbParametrosGeneraRutas();
+//			  tbdr.setFcNombreDR(jso.get("nombreRuta").getAsString());
+			  tbdr.setFdoStartLocationLatDR(jso.get("p1Lat").getAsDouble());
+			  tbdr.setFdoStartLocationLngDR(jso.get("p1Lng").getAsDouble());
+			  tbdr.setFdoEndLocationLatDR(jso.get("p2Lat").getAsDouble());
+			  tbdr.setFdoEndLocationLngDR(jso.get("p2Lng").getAsDouble());
+			  
+			  srp.setTbdr(tbdr);
 			  srp.generaDatosForRutas();
 
 			  response.setContentType("text/json");

@@ -1,6 +1,5 @@
 package com.lamarrulla.datosrutas;
 
-import java.math.BigDecimal;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -10,7 +9,8 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.lamarrulla.api.API;
 import com.lamarrulla.database.Inserts;
-import com.lamarrulla.model.TbDatosGeneraRutas;
+import com.lamarrulla.database.Selects;
+import com.lamarrulla.model.TbParametrosGeneraRutas;
 import com.lamarrulla.model.TbPasos;
 
 /*import lamarrulla.com.APIRest.API;
@@ -29,46 +29,73 @@ static API api = new API();
 //	static String yEk = "AIzaSyDkeEm6iunIM2P4qFZbYmxaxhItMUsY_h0";
 //	static String Token = "9160";	
 	
-	public void setEndLocationLat(BigDecimal endLocationLat) {
-		EndLocationLat = endLocationLat;
+//	public void setEndLocationLat(BigDecimal endLocationLat) {
+//		EndLocationLat = endLocationLat;
+//	}
+//
+//	public void setEndLocationLng(BigDecimal endLocationLng) {
+//		EndLocationLng = endLocationLng;
+//	}
+//
+//	public void setStartLocationLat(BigDecimal startLocationLat) {
+//		StartLocationLat = startLocationLat;
+//	}
+//
+//	public void setStartLocationLng(BigDecimal startLocationLng) {
+//		StartLocationLng = startLocationLng;
+//	}
+//	
+//	public void setNombreRuta(String nombreRuta) {
+//		this.nombreRuta = nombreRuta;
+//	}	
+//
+	public void setTbdr(TbParametrosGeneraRutas tbdr) {
+		this.tbdr = tbdr;
 	}
-
-	public void setEndLocationLng(BigDecimal endLocationLng) {
-		EndLocationLng = endLocationLng;
-	}
-
-	public void setStartLocationLat(BigDecimal startLocationLat) {
-		StartLocationLat = startLocationLat;
-	}
-
-	public void setStartLocationLng(BigDecimal startLocationLng) {
-		StartLocationLng = startLocationLng;
-	}
-
-	private BigDecimal EndLocationLat;
-	private BigDecimal EndLocationLng;
-	private BigDecimal StartLocationLat;
-	private BigDecimal StartLocationLng;
+//
+//	private String nombreRuta;
+//	private BigDecimal EndLocationLat;
+//	private BigDecimal EndLocationLng;
+//	private BigDecimal StartLocationLat;
+//	private BigDecimal StartLocationLng;
 	private String yEk;
-	private String Token;
+//	private String Token;
 	private int IdPaso;
 	
+	private TbParametrosGeneraRutas tbdr;
+	
 	static Inserts ins = new Inserts();		
+	static Selects sel = new Selects();
 	
 	public void generaDatosForRutas() {
-		ins.selectGeneraDatosForRutas();
-		List<TbDatosGeneraRutas> ldgr = new ArrayList<TbDatosGeneraRutas>();
-		ldgr = ins.getListDatosGeneraRutas();
-		for(TbDatosGeneraRutas dgr : ldgr) {
-			//EndLocationLat = dgr.getFdoEndLocationLat().toString();
-			//EndLocationLng = dgr.getFdoEndLocationLng().toString();
-			//StartLocationLat = dgr.getFdoStartLocationLat().toString();
-			//StartLocationLng = dgr.getFdoStartLocationLng().toString();
-			yEk = dgr.getFcYek();
-			Token = dgr.getFcToken();
-			getRutas();
-		}
-		ins.getListDatosGeneraRutas();
+		//Old
+		//sel.selectGeneraDatosForRutas();
+		
+		//lee credenciales
+		sel.selectCredenciales();
+		sel.getListCredenciales().forEach(listcredenciales->yEk = listcredenciales.getFcYeK());
+		System.out.println(yEk);
+		//New				
+		//ins.setTbdatosrutas(tbdr);
+		//ins.insertaTbDatosRutas();
+		
+		getRutas();
+		
+//		List<TbDatosGeneraRutas> ldgr = new ArrayList<TbDatosGeneraRutas>();
+//		ldgr = sel.getListDatosGeneraRutas();				
+		
+		//Old
+//		for(TbDatosGeneraRutas dgr : ldgr) {
+//			//EndLocationLat = dgr.getFdoEndLocationLat().toString();
+//			//EndLocationLng = dgr.getFdoEndLocationLng().toString();
+//			//StartLocationLat = dgr.getFdoStartLocationLat().toString();
+//			//StartLocationLng = dgr.getFdoStartLocationLng().toString();
+//			yEk = dgr.getFcYek();
+//			Token = dgr.getFcToken();
+//			getRutas();
+//		}
+		
+		
 	}
 	
 	public void generaDatosForUsers() {
@@ -92,7 +119,7 @@ static API api = new API();
 	
 	public void getUser() {
 		try {
-			URL url = new URL("https://www.waze.com/row-rtserver/web/TGeoRSS?bottom=" + StartLocationLat + "&left=" + StartLocationLng + "&ma=0&mj=0&mu=400&right=" + EndLocationLng + "&top=" + EndLocationLat + "&types=alerts%2Ctraffic%2Cusers");
+			URL url = new URL("https://www.waze.com/row-rtserver/web/TGeoRSS?bottom=" + tbdr.getFdoStartLocationLatDR() + "&left=" + tbdr.getFdoStartLocationLngDR() + "&ma=0&mj=0&mu=400&right=" + tbdr.getFdoEndLocationLatDR() + "&top=" + tbdr.getFdoEndLocationLngDR() + "&types=alerts%2Ctraffic%2Cusers");
 			api.setUrl(url);
 			api.get();
 			//System.out.println(api.getSalida().toString());
@@ -110,7 +137,8 @@ static API api = new API();
 		
 		try {
 			//URL url = new URL("https://maps.googleapis.com/maps/api/js/DirectionsService.Route?5m4&1m3&1m2&1d" + StartLocationLat + "&2d" + StartLocationLng + "&5m4&1m3&1m2&1d" + EndLocationLat + "&2d" + EndLocationLng + "&6e0&12ses-MX&23e1&callback=_xdc_._ft28bq&key=" + yEk + "&token=" + Token);
-			URL url = new URL("https://maps.googleapis.com/maps/api/directions/json?origin=mexico,mx&destination=mexico,mx&waypoints=via:" + StartLocationLat + "%2C" + StartLocationLng + "%7Cvia:" + EndLocationLat + "%2C" + EndLocationLng + "&key=" + yEk);
+			//URL url = new URL("https://maps.googleapis.com/maps/api/directions/json?origin=mexico,mx&destination=mexico,mx&waypoints=via:" + tbdr.getFdoStartLocationLatDR() + "%2C" + tbdr.getFdoStartLocationLngDR() + "%7Cvia:" + tbdr.getFdoEndLocationLatDR() + "%2C" + tbdr.getFdoEndLocationLngDR() + "&key=" + yEk);
+			URL url = new URL("https://maps.googleapis.com/maps/api/directions/json?origin=" + tbdr.getFdoStartLocationLatDR() + "," + tbdr.getFdoStartLocationLngDR() + "&destination=" + tbdr.getFdoEndLocationLatDR() + "," + tbdr.getFdoEndLocationLngDR() + "&key=" + yEk);
 			api.setUrl(url);
 			api.get();
 			arreglaSalidaMaps(api.getSalida());

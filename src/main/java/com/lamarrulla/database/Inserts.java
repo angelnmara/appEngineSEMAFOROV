@@ -14,6 +14,7 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.lamarrulla.model.TbDatosGeneraRutas;
+import com.lamarrulla.model.TbParametrosGeneraRutas;
 import com.lamarrulla.model.TbPasos;
 import com.lamarrulla.model.TbRutas;
 import com.lamarrulla.model.TbUsuarios;
@@ -30,10 +31,15 @@ public class Inserts {
 	boolean ultimoRegistro;
 	DbAcces dbAcces = new DbAcces();
 	List<TbRutas> listTbRutas;
-	List<TbDatosGeneraRutas> listDatosGeneraRutas;
+//	List<TbDatosGeneraRutas> listDatosGeneraRutas;
 	List<TbPasos> listPasos;
+	TbParametrosGeneraRutas tbdatosrutas;
 	FileWriter csvWriter;
-	BufferedWriter bw = null;
+	BufferedWriter bw = null;	
+	
+	public void setTbdatosrutas(TbParametrosGeneraRutas tbdatosrutas) {
+		this.tbdatosrutas = tbdatosrutas;
+	}
 
 	public boolean isUltimoRegistro() {
 		return ultimoRegistro;
@@ -73,46 +79,6 @@ public class Inserts {
 
 	public void setJso(JsonObject jso) {
 		this.jso = jso;
-	}
-
-	public List<TbDatosGeneraRutas> getListDatosGeneraRutas() {
-		return listDatosGeneraRutas;
-	}
-
-	public void setListDatosGeneraRutas(List<TbDatosGeneraRutas> listDatosGeneraRutas) {
-		this.listDatosGeneraRutas = listDatosGeneraRutas;
-	}
-
-	public void selectGeneraDatosForRutas() {
-		try {
-			listDatosGeneraRutas = new ArrayList<TbDatosGeneraRutas>();
-			dbAcces.connectDatabase();
-			dbAcces.setStrQuery("select * from tbDatosGeneraRutas");
-			dbAcces.execQry();
-			ResultSet rs = dbAcces.getRs();
-			if (rs != null) {
-				boolean isL = false;
-				while (!isL) {
-					TbDatosGeneraRutas dgr = new TbDatosGeneraRutas(rs.getString(2),
-							rs.getBigDecimal(3).setScale(7, RoundingMode.HALF_UP),
-							rs.getBigDecimal(4).setScale(14, RoundingMode.HALF_UP),
-							rs.getBigDecimal(5).setScale(7, RoundingMode.HALF_UP),
-							rs.getBigDecimal(6).setScale(14, RoundingMode.HALF_UP), rs.getString(7), rs.getString(8));
-					listDatosGeneraRutas.add(dgr);
-					if (rs.isLast()) {
-						isL = true;
-					} else {
-						rs.next();
-					}
-					;
-					// System.out.println();
-				}
-			}
-			dbAcces.disconnectDatabase();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 	}
 
 	public void selectPasos() {
@@ -320,6 +286,14 @@ public class Inserts {
 			dbAcces.execQry();
 			dbAcces.disconnectDatabase();
 		}
+	}
+	
+	public void insertaTbDatosRutas() {				
+		dbAcces.connectDatabase();		
+//		dbAcces.setStrQuery(tbdatosrutas.getQryStringInsert());
+		dbAcces.execQry();
+		id = dbAcces.getIdReturned();
+		dbAcces.disconnectDatabase();
 	}
 
 	public void insertRutas() {
