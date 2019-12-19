@@ -9,16 +9,16 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
-import com.lamarrulla.datosrutas.SaveRutasPasos;
+import com.lamarrulla.bussines.SaveRutasPasos;
 import com.lamarrulla.model.TbParametrosGeneraRutas;
 import com.lamarrulla.utils.LaMarrullaUtils;
 
 @WebServlet(
-	    name = "generaDatosForRutasAppEngine",
-	    urlPatterns = {"/generaDatosForRutas"}
+	    name = "GuardaRutaAppEngine",
+	    urlPatterns = {"/guardaruta"}
 	)
 
-public class ObtenDatosAppEngine extends HttpServlet {
+public class GuardaRutaAppEngine extends HttpServlet {
 	
 	SaveRutasPasos srp = new SaveRutasPasos();
 	LaMarrullaUtils utils = new LaMarrullaUtils();
@@ -32,22 +32,14 @@ public class ObtenDatosAppEngine extends HttpServlet {
 		  try {
 			  //lee parametros
 			  String parametrosEntrada = utils.recoverParams(request);
-			  jso = new JsonParser().parse(parametrosEntrada).getAsJsonObject();	
+			  jso = new JsonParser().parse(parametrosEntrada).getAsJsonObject();				  
 			  
-			  //old
-//			  srp.setNombreRuta(jso.get("nombreRuta").getAsString());
-//			  srp.setStartLocationLat(jso.get("p1Lat").getAsBigDecimal());
-//			  srp.setStartLocationLng(jso.get("p1Lng").getAsBigDecimal());
-//			  srp.setEndLocationLat(jso.get("p2Lat").getAsBigDecimal());
-//			  srp.setEndLocationLng(jso.get("p2Lng").getAsBigDecimal());
-			  
-			  //new
+			  //Setea parametros
 			  TbParametrosGeneraRutas tbdr = new TbParametrosGeneraRutas();
-//			  tbdr.setFcNombreDR(jso.get("nombreRuta").getAsString());
-			  tbdr.setFdoStartLocationLatDR(jso.get("p1Lat").getAsDouble());
-			  tbdr.setFdoStartLocationLngDR(jso.get("p1Lng").getAsDouble());
-			  tbdr.setFdoEndLocationLatDR(jso.get("p2Lat").getAsDouble());
-			  tbdr.setFdoEndLocationLngDR(jso.get("p2Lng").getAsDouble());
+			  tbdr.setFdoStartLocationLatDR(jso.get("fdoStartLocationLatDR").getAsDouble());
+			  tbdr.setFdoStartLocationLngDR(jso.get("fdoStartLocationLngDR").getAsDouble());
+			  tbdr.setFdoEndLocationLatDR(jso.get("fdoEndLocationLatDR").getAsDouble());
+			  tbdr.setFdoEndLocationLngDR(jso.get("fdoEndLocationLngDR").getAsDouble());
 			  
 			  srp.setTbdr(tbdr);
 			  srp.generaDatosForRutas();
@@ -59,7 +51,5 @@ public class ObtenDatosAppEngine extends HttpServlet {
 			  salida = "ocurrio un error al porcesar la información " + ex;
 		  }		 
 	    response.getWriter().print("{\"salida\":\"" + salida + "\"}");
-	  }
-	  
-	  
+	  }	 	 
 }

@@ -2,17 +2,6 @@ package com.lamarrulla.model;
 
 public class TbParametrosGeneraRutas {	
 	
-//	public String getQryStringInsert() {
-//		return qryStringInsert = String.format("insert into tbDatosRutas (fcNombreDR, fdoStartLocationLatDR, fdoStartLocationLngDR, fdoEndLocationLatDR, fdoEndLocationLngDR)values('%s', %f, %f, %f, %f) returning fiIdDR; ",
-//				fcNombreDR,
-//				fdoStartLocationLatDR,
-//				fdoStartLocationLngDR, 
-//				fdoEndLocationLatDR,
-//				fdoEndLocationLngDR);
-//	}
-//	public void setFcNombreDR(String fcNombreDR) {
-//		this.fcNombreDR = fcNombreDR;
-//	}
 	public void setFdoStartLocationLatDR(double fdoStartLocationLatDR) {
 		this.fdoStartLocationLatDR = fdoStartLocationLatDR;
 	}
@@ -25,9 +14,7 @@ public class TbParametrosGeneraRutas {
 	public void setFdoEndLocationLngDR(double fdoEndLocationLngDR) {
 		this.fdoEndLocationLngDR = fdoEndLocationLngDR;
 	}	
-//	public String getFcNombreDR() {
-//		return fcNombreDR;
-//	}
+
 	public double getFdoStartLocationLatDR() {
 		return fdoStartLocationLatDR;
 	}
@@ -41,12 +28,9 @@ public class TbParametrosGeneraRutas {
 		return fdoEndLocationLngDR;
 	}
 
-
-
-//	String fcNombreDR; 
 	double fdoStartLocationLatDR; 
 	double fdoStartLocationLngDR; 
 	double fdoEndLocationLatDR; 
 	double fdoEndLocationLngDR;
-	String qryStringInsert;	
+	
 }

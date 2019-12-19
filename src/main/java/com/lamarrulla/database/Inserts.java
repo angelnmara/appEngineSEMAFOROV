@@ -2,7 +2,6 @@ package com.lamarrulla.database;
 
 import java.io.BufferedWriter;
 import java.io.FileWriter;
-import java.math.RoundingMode;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
@@ -13,7 +12,6 @@ import java.util.List;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-import com.lamarrulla.model.TbDatosGeneraRutas;
 import com.lamarrulla.model.TbParametrosGeneraRutas;
 import com.lamarrulla.model.TbPasos;
 import com.lamarrulla.model.TbRutas;
@@ -380,7 +378,7 @@ public class Inserts {
 				 * 
 				 * listTbPasos.add(tbpasos);
 				 */
-				System.out.println(jsoStartLocation.toString());
+				System.out.println(jsoEndLocationStep.get("lat").getAsBigDecimal() + " " + jsoEndLocationStep.get("lng").getAsBigDecimal() + " " + jsoStartLocationStep.get("lat").getAsBigDecimal() + " " + jsoStartLocationStep.get("lng").getAsBigDecimal());
 			}
 		}
 	}
