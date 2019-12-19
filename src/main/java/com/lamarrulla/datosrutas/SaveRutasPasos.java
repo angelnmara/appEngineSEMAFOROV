@@ -1,5 +1,6 @@
 package com.lamarrulla.datosrutas;
 
+import java.math.BigDecimal;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -27,11 +28,27 @@ static API api = new API();
 //	static String P2Longitude = "-99.17037160000001";
 //	static String yEk = "AIzaSyDkeEm6iunIM2P4qFZbYmxaxhItMUsY_h0";
 //	static String Token = "9160";	
+	
+	public void setEndLocationLat(BigDecimal endLocationLat) {
+		EndLocationLat = endLocationLat;
+	}
 
-	private String EndLocationLat;
-	private String EndLocationLng;
-	private String StartLocationLat;
-	private String StartLocationLng;
+	public void setEndLocationLng(BigDecimal endLocationLng) {
+		EndLocationLng = endLocationLng;
+	}
+
+	public void setStartLocationLat(BigDecimal startLocationLat) {
+		StartLocationLat = startLocationLat;
+	}
+
+	public void setStartLocationLng(BigDecimal startLocationLng) {
+		StartLocationLng = startLocationLng;
+	}
+
+	private BigDecimal EndLocationLat;
+	private BigDecimal EndLocationLng;
+	private BigDecimal StartLocationLat;
+	private BigDecimal StartLocationLng;
 	private String yEk;
 	private String Token;
 	private int IdPaso;
@@ -43,10 +60,10 @@ static API api = new API();
 		List<TbDatosGeneraRutas> ldgr = new ArrayList<TbDatosGeneraRutas>();
 		ldgr = ins.getListDatosGeneraRutas();
 		for(TbDatosGeneraRutas dgr : ldgr) {
-			EndLocationLat = dgr.getFdoEndLocationLat().toString();
-			EndLocationLng = dgr.getFdoEndLocationLng().toString();
-			StartLocationLat = dgr.getFdoStartLocationLat().toString();
-			StartLocationLng = dgr.getFdoStartLocationLng().toString();
+			//EndLocationLat = dgr.getFdoEndLocationLat().toString();
+			//EndLocationLng = dgr.getFdoEndLocationLng().toString();
+			//StartLocationLat = dgr.getFdoStartLocationLat().toString();
+			//StartLocationLng = dgr.getFdoStartLocationLng().toString();
 			yEk = dgr.getFcYek();
 			Token = dgr.getFcToken();
 			getRutas();
@@ -61,10 +78,10 @@ static API api = new API();
 		int count = 0;
 		for(TbPasos tp: listaTbPasos) {
 			IdPaso = tp.getFiIdPaso();
-			EndLocationLat = tp.getFdoEndLocationLat().toString();
-			EndLocationLng = tp.getFdoEndLocationLng().toString();
-			StartLocationLat = tp.getFdoStartLocationLat().toString();
-			StartLocationLng = tp.getFdoStartLocationLng().toString();
+			//EndLocationLat = tp.getFdoEndLocationLat().toString();
+			//EndLocationLng = tp.getFdoEndLocationLng().toString();
+			//StartLocationLat = tp.getFdoStartLocationLat().toString();
+			//StartLocationLng = tp.getFdoStartLocationLng().toString();
 			count ++;
 			if(count == listaTbPasos.size()) {
 				ins.setUltimoRegistro(true);
@@ -93,7 +110,7 @@ static API api = new API();
 		
 		try {
 			//URL url = new URL("https://maps.googleapis.com/maps/api/js/DirectionsService.Route?5m4&1m3&1m2&1d" + StartLocationLat + "&2d" + StartLocationLng + "&5m4&1m3&1m2&1d" + EndLocationLat + "&2d" + EndLocationLng + "&6e0&12ses-MX&23e1&callback=_xdc_._ft28bq&key=" + yEk + "&token=" + Token);
-			URL url = new URL("https://maps.googleapis.com/maps/api/directions/json?origin=ex%20hacienda%20santa%20ines,%20nextlalpan&destination=ojo%20de%20agua,%20tecamac&key=AIzaSyCQPkPoI81M_rkO_qWp8gGTSxTnwhKfWiY");
+			URL url = new URL("https://maps.googleapis.com/maps/api/directions/json?origin=mexico,mx&destination=mexico,mx&waypoints=via:" + StartLocationLat + "%2C" + StartLocationLng + "%7Cvia:" + EndLocationLat + "%2C" + EndLocationLng + "&key=" + yEk);
 			api.setUrl(url);
 			api.get();
 			arreglaSalidaMaps(api.getSalida());

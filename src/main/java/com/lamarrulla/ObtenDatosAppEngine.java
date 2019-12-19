@@ -7,7 +7,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import com.lamarrulla.datosrutas.SaveRutasPasos;
+import com.lamarrulla.utils.LaMarrullaUtils;
 
 @WebServlet(
 	    name = "generaDatosForRutasAppEngine",
@@ -17,10 +20,28 @@ import com.lamarrulla.datosrutas.SaveRutasPasos;
 public class ObtenDatosAppEngine extends HttpServlet {
 	
 	SaveRutasPasos srp = new SaveRutasPasos();
+	LaMarrullaUtils utils = new LaMarrullaUtils();
+	JsonObject jso = new JsonObject();
+//	BigDecimal EndLocationLat;
+//	BigDecimal EndLocationLng;
+//	BigDecimal StartLocationLat;
+//	BigDecimal StartLocationLng;
 	
 	  public void doPost(HttpServletRequest request, HttpServletResponse response) 
 	      throws IOException {
 
+		  String parametrosEntrada = utils.recoverParams(request);
+		  jso = new JsonParser().parse(parametrosEntrada).getAsJsonObject();	
+		  
+//		  StartLocationLat = jso.get("p1Lat").getAsBigDecimal();
+//		  StartLocationLng = jso.get("p1Lng").getAsBigDecimal();
+//		  EndLocationLng = jso.get("p2Lat").getAsBigDecimal();
+//		  EndLocationLat = jso.get("p2Lng").getAsBigDecimal();
+		  
+		  srp.setStartLocationLat(jso.get("p1Lat").getAsBigDecimal());
+		  srp.setStartLocationLng(jso.get("p1Lng").getAsBigDecimal());
+		  srp.setEndLocationLat(jso.get("p2Lat").getAsBigDecimal());
+		  srp.setEndLocationLng(jso.get("p2Lng").getAsBigDecimal());
 		  srp.generaDatosForRutas();
 		  
 	    response.setContentType("text/json");
@@ -29,4 +50,6 @@ public class ObtenDatosAppEngine extends HttpServlet {
 	    response.getWriter().print("{\"valor\":\"Obten Datos!\"}");
 
 	  }
+	  
+	  
 }
