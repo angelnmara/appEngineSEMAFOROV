@@ -22,33 +22,29 @@ public class ObtenDatosAppEngine extends HttpServlet {
 	SaveRutasPasos srp = new SaveRutasPasos();
 	LaMarrullaUtils utils = new LaMarrullaUtils();
 	JsonObject jso = new JsonObject();
-//	BigDecimal EndLocationLat;
-//	BigDecimal EndLocationLng;
-//	BigDecimal StartLocationLat;
-//	BigDecimal StartLocationLng;
 	
 	  public void doPost(HttpServletRequest request, HttpServletResponse response) 
 	      throws IOException {
-
-		  String parametrosEntrada = utils.recoverParams(request);
-		  jso = new JsonParser().parse(parametrosEntrada).getAsJsonObject();	
 		  
-//		  StartLocationLat = jso.get("p1Lat").getAsBigDecimal();
-//		  StartLocationLng = jso.get("p1Lng").getAsBigDecimal();
-//		  EndLocationLng = jso.get("p2Lat").getAsBigDecimal();
-//		  EndLocationLat = jso.get("p2Lng").getAsBigDecimal();
+		  String salida;
 		  
-		  srp.setStartLocationLat(jso.get("p1Lat").getAsBigDecimal());
-		  srp.setStartLocationLng(jso.get("p1Lng").getAsBigDecimal());
-		  srp.setEndLocationLat(jso.get("p2Lat").getAsBigDecimal());
-		  srp.setEndLocationLng(jso.get("p2Lng").getAsBigDecimal());
-		  srp.generaDatosForRutas();
-		  
-	    response.setContentType("text/json");
-	    response.setCharacterEncoding("UTF-8");
+		  try {
+			  String parametrosEntrada = utils.recoverParams(request);
+			  jso = new JsonParser().parse(parametrosEntrada).getAsJsonObject();	
+			  
+			  srp.setStartLocationLat(jso.get("p1Lat").getAsBigDecimal());
+			  srp.setStartLocationLng(jso.get("p1Lng").getAsBigDecimal());
+			  srp.setEndLocationLat(jso.get("p2Lat").getAsBigDecimal());
+			  srp.setEndLocationLng(jso.get("p2Lng").getAsBigDecimal());
+			  srp.generaDatosForRutas();
 
-	    response.getWriter().print("{\"valor\":\"Obten Datos!\"}");
-
+			  response.setContentType("text/json");
+			  response.setCharacterEncoding("UTF-8");
+			  salida = "Información porcesada correctamente";
+		  }catch(Exception ex) {
+			  salida = "ocurrio un error al porcesar la información " + ex;
+		  }		 
+	    response.getWriter().print("{\"salida\":\"" + salida + "\"}");
 	  }
 	  
 	  
