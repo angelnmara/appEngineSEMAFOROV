@@ -86,11 +86,31 @@ public class Inserts {
 			dbAcces.setStrQuery("select * from tbPasos");
 			dbAcces.execQry();
 			ResultSet rs = dbAcces.getRs();
-			if (rs.next() == false) { 
-				System.out.println("ResultSet in empty in Java"); 
-			} 
-			else { 
-				do { 
+//			if (rs.next() == false) { 
+//				System.out.println("ResultSet in empty in Java"); 
+//			} 
+//			else { 
+//				do { 
+//					TbPasos tp = new TbPasos(
+//							rs.getInt(1),
+//							rs.getInt(2),
+//							rs.getString(3), 
+//							rs.getInt(4), 
+//							rs.getString(5), 
+//							rs.getInt(6), 
+//							rs.getBigDecimal(7), 
+//							rs.getBigDecimal(8), 
+//							rs.getBigDecimal(9), 
+//							rs.getBigDecimal(10), 
+//							rs.getString(11)
+//							);
+//					listPasos.add(tp); 
+//				} while (rs.next()); 
+//			}
+			
+			if (rs != null) {
+				boolean isL = false;
+				while (!isL) {
 					TbPasos tp = new TbPasos(
 							rs.getInt(1),
 							rs.getInt(2),
@@ -104,34 +124,14 @@ public class Inserts {
 							rs.getBigDecimal(10), 
 							rs.getString(11)
 							);
-					listPasos.add(tp); 
-				} while (rs.next()); 
+					listPasos.add(tp);
+					if (rs.isLast()) {
+						isL = true;
+					} else {
+						rs.next();
+					}
+				}
 			}
-			
-//			if (rs != null) {
-//				boolean isL = false;
-//				while (!isL) {
-//					tbPasos tp = new tbPasos(
-//							rs.getInt(1),
-//							rs.getInt(2),
-//							rs.getString(3), 
-//							rs.getInt(4), 
-//							rs.getString(5), 
-//							rs.getInt(6), 
-//							rs.getBigDecimal(7), 
-//							rs.getBigDecimal(8), 
-//							rs.getBigDecimal(9), 
-//							rs.getBigDecimal(10), 
-//							rs.getString(11)
-//							);
-//					listPasos.add(tp);
-//					if (rs.isLast()) {
-//						isL = true;
-//					} else {
-//						rs.next();
-//					}
-//				}
-//			}
 		} catch (Exception ex) {
 			System.out.println("error select pasos: " + ex.getMessage());
 		}

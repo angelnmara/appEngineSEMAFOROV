@@ -15,8 +15,10 @@ CREATE DATABASE "SEMAFOROV"
 
 begin transaction;
 
+/*
 drop table if exists tbDatosGeneraRutas;
 drop table if exists tbDatosRutas;
+*/
 drop table if exists tbUsuarios;
 DROP TABLE IF EXISTS tbPasos;
 DROP TABLE IF EXISTS tbRutas;
@@ -81,7 +83,8 @@ create table if not exists tbUsuarios(fiIdUsuario serial primary key,
 									 fcId varchar(100),
 									 fcUserName varchar(200),
 									 fdoSpeed float8,
-									 fnIngroup boolean);
+									 fnIngroup boolean,
+									 fdFecha timestamp not null default CURRENT_TIMESTAMP);
 
 insert into tbCredenciales(fcYeK)values('AIzaSyDkeEm6iunIM2P4qFZbYmxaxhItMUsY_h0');
 					 /*

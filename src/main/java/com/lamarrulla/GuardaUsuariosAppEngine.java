@@ -1,6 +1,9 @@
 package com.lamarrulla;
 
 import java.io.IOException;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -22,7 +25,29 @@ public class GuardaUsuariosAppEngine extends HttpServlet {
 	SaveRutasPasos srp = new SaveRutasPasos();
 	LaMarrullaUtils utils = new LaMarrullaUtils();
 	JsonObject jso = new JsonObject();
-	SaveUsuariosW suw = new SaveUsuariosW();
+	static SaveUsuariosW suw;
+	ScheduledExecutorService executor;
+	
+	@Override
+	  public void doGet(HttpServletRequest request, HttpServletResponse response) 
+	      throws IOException {
+
+		try {
+			response.setContentType("text/plain");
+		    response.setCharacterEncoding("UTF-8");
+		    
+		    executor.shutdown();
+		    
+		    System.out.println("Se termino el executor?" + executor.isShutdown());
+		    
+		}catch(Exception e) {
+			response.getWriter().print("Ocurrio un error: " + e.getMessage());
+		}
+	    
+
+	    response.getWriter().print("El servicio fue terminado?!\r\n" + executor.isShutdown());
+
+	  }
 	
 	@Override
 	  public void doPost(HttpServletRequest request, HttpServletResponse response) 
@@ -37,8 +62,10 @@ public class GuardaUsuariosAppEngine extends HttpServlet {
 			  
 			  //Setea parametros
 			  int idRuta = jso.get("idRuta").getAsInt();
-			  			  
-			  suw.generaDatosForUsers();
+			  
+			  executor = Executors.newScheduledThreadPool(1);
+			  executor.scheduleAtFixedRate(helloRunnable, 0, 60, TimeUnit.SECONDS);
+			  					  
 //			  srp.setTbdr(tbdr);
 //			  srp.generaDatosForRutas();
 
@@ -50,4 +77,12 @@ public class GuardaUsuariosAppEngine extends HttpServlet {
 		  }		 
 	    response.getWriter().print("{\"salida\":\"" + salida + "\"}");
 	  }
+	
+	static Runnable helloRunnable = new Runnable() {
+	    public void run() {
+	        System.out.println("GetDatos");
+	        suw = new SaveUsuariosW();
+	        suw.generaDatosForUsers();
+	    }
+	};
 }
