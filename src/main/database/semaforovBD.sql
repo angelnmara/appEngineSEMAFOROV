@@ -86,7 +86,7 @@ create table if not exists tbUsuarios(fiIdUsuario serial primary key,
 									 fnIngroup boolean,
 									 fdFecha timestamp not null default CURRENT_TIMESTAMP);
 
-insert into tbCredenciales(fcYeK)values('AIzaSyDkeEm6iunIM2P4qFZbYmxaxhItMUsY_h0');
+insert into tbCredenciales(fcYeK)values('AIzaSyCQPkPoI81M_rkO_qWp8gGTSxTnwhKfWiY');
 					 /*
 insert into tbDatosGeneraRutas(fcDescDatosGeneraRutas,
 							fdoEndLocationLat,

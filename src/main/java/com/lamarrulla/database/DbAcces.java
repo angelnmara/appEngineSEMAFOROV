@@ -73,7 +73,7 @@ public class DbAcces {
             			    instance);
             		connection = DriverManager.getConnection(jdbcUrl, user, passw);
 //            		String j = "jdbc:postgresql://google/" + database + "?cloudSqlInstance=" + instance + "&socketFactory=com.google.cloud.sql.postgres.SocketFactory&user=" + user + "&password=" + passw;
-            		connection = DriverManager.getConnection(jdbcUrl);
+//            		connection = DriverManager.getConnection(jdbcUrl);
 
                     break;
                 default:
